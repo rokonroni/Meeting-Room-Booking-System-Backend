@@ -1,5 +1,7 @@
+import { Types } from "mongoose";
+
 export type TSlot = {
-  room: string;
+  room: Types.ObjectId;
   date: Date;
   startTime: string;
   endTime: string;

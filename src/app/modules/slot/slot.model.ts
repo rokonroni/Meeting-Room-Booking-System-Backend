@@ -1,11 +1,10 @@
 import { Schema, Types, model } from "mongoose";
 import { TSlot } from "./slot.interface";
-import Room from "../room/room.model";
 
 const SlotSchema: Schema = new Schema({
   room: { 
-    type: Types.ObjectId, 
-    ref: Room,
+    type: Schema.Types.ObjectId, 
+    ref: "Room",
     required: true
     },
   date: { 
@@ -26,6 +25,6 @@ const SlotSchema: Schema = new Schema({
     },
 });
 
-const Slot = model<TSlot>("slot", SlotSchema);
+const Slot = model<TSlot>("Slot", SlotSchema);
 
 export default Slot;

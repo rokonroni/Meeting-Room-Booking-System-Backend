@@ -33,6 +33,6 @@ const RoomSchema = new Schema<TRoom>({
     },
 });
 
-const Room = model<TRoom>("room", RoomSchema);
+const Room = model<TRoom>("Room", RoomSchema);
 
 export default Room;

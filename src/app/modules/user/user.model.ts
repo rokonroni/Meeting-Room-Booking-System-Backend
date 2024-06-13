@@ -77,5 +77,5 @@ userSchema.statics.isPasswordMatched = async function (
 
 
 
-const User= model<IUser, UserModel>("user", userSchema);
+const User= model<IUser, UserModel>("User", userSchema);
 export default User; 
