@@ -3,7 +3,7 @@ import httpStatus from "http-status";
 
 type TResponse<T> = {
   success: boolean, 
-  statusCode: number, 
+  statusCode: number,
   message: string;
   data: T;
 };

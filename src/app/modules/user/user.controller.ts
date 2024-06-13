@@ -26,6 +26,34 @@ const createUser = catchAsync(async (req, res) => {
 });
 
 
+
+const loginUser = catchAsync(async (req, res) => {
+  const result = await UserServices.loginUser(req.body);
+  // const { refreshToken, accessToken, needsPasswordChange } = result;
+
+  // res.cookie('refreshToken', refreshToken, {
+  //   secure: config.NODE_ENV === 'production',
+  //   httpOnly: true,
+  // });
+   const transformedResult = {
+    _id: result?._id,
+    name: result?.name,
+    email: result?.email,
+    phone: result?.phone, 
+    role: result?.role,
+    address: result?.address,
+  };
+
+  res.send({
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "User logged in successfully",
+    token: "Token", 
+    data: transformedResult,
+  });
+});
+
+
 export const UserControllers = {
-  createUser, 
+  createUser, loginUser
 };
