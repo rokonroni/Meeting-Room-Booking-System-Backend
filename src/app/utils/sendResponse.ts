@@ -1,17 +1,17 @@
-import { RequestHandler, Response } from "express";
+import { Response } from "express";
 import httpStatus from "http-status";
 
 type TResponse<T> = {
-  success: boolean, 
-  statusCode: number,
   message: string;
+  success?: boolean;
+  statusCode?: number;
   data: T;
 };
 
 const sendResponse = <T>(res: Response, data: TResponse<T>) => {
-  res.send({
-    success: true,
-    statusCode: httpStatus.OK,
+  res.status(data?.statusCode || httpStatus.OK).send({
+    success: (data.success && data?.success) || true,
+    statusCode: data?.statusCode || httpStatus.OK,
     message: data.message,
     data: data.data,
   });
