@@ -21,9 +21,15 @@ const SlotSchema: Schema = new Schema({
     },
   isBooked: { 
     type: Boolean, 
-    required: true 
+    default: false
     },
 });
+
+SlotSchema.pre('find', function (next) {
+  this.find({ isBooked: { $eq: false } });
+  next();
+});
+
 
 const Slot = model<TSlot>("Slot", SlotSchema);
 
