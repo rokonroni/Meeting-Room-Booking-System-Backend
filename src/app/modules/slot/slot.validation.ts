@@ -32,7 +32,6 @@ const createSlotValidationSchema = z.object({
   })
   .refine(
     (data) => {
-      console.log(data, data.startTime.split(':'), 0);
       const [startHour, startMinute] = data.startTime.split(':').map(Number);
       const [endHour, endMinute] = data.endTime.split(':').map(Number);
       return (

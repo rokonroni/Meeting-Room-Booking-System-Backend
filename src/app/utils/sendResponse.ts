@@ -10,7 +10,7 @@ type TResponse<T> = {
 
 const sendResponse = <T>(res: Response, data: TResponse<T>) => {
   res.status(data?.statusCode || httpStatus.OK).send({
-    success: (data.success && data?.success) || true,
+    success: data.success !== undefined ? data.success : true,
     statusCode: data?.statusCode || httpStatus.OK,
     message: data.message,
     data: data.data,

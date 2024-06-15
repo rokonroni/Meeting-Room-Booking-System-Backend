@@ -26,4 +26,4 @@ router.put(
 
 router.delete('/:id', auth('admin'), RoomControllers.deleteSingleRoom);
 
-export const meetingRoomRoute = router;
+export const RoomRoutes = router;

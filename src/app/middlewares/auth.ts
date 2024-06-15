@@ -6,6 +6,10 @@ import config from '../config';
 import catchAsync from '../utils/catchAsync';
 import User from '../modules/user/user.model';
 
+
+
+type TUserRole = 'user' | 'admin';
+
 export const auth = (...requiredRole: TUserRole[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     // const token = req.headers.authorization;

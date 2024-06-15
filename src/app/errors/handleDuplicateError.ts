@@ -1,20 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-import { TGenericErrorResponse, TerrorSource } from '../interface/error';
+import { TErrorMessages, TGenericErrorResponse } from "../interface/error";
 
 const handleDuplicateError = (err: any): TGenericErrorResponse => {
-  // Extract value within double quotes using regex
-  const match = err.message.match(/"([^"]*)"/);
 
-  // The extracted value will be in the first capturing group
-  const extractedMessage = match && match[1];
+  const message = err.message;
 
-  console.log(err.message, 5, match, 1, extractedMessage, 9);
-
-  const errorSources: TerrorSource = [
+  const errorMessages: TErrorMessages = [
     {
-      path: '',
-      message: `${extractedMessage} is already exists`,
+      path: "",
+      message: `${err.message} is already exists`,
     },
   ];
 
@@ -22,8 +16,8 @@ const handleDuplicateError = (err: any): TGenericErrorResponse => {
 
   return {
     statusCode,
-    message: 'Invalid ID',
-    errorSources,
+    message,
+    errorMessages,
   };
 };
 

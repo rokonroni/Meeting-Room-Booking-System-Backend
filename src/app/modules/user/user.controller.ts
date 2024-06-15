@@ -1,59 +1,27 @@
-import httpStatus from "http-status";
-import catchAsync from "../../utils/catchAsync";
-import { UserServices } from "./user.service";
-import sendResponse from "../../utils/sendResponse";
+
+import catchAsync from '../../utils/catchAsync';
+import sendResponse from '../../utils/sendResponse';
+import { UserServices } from './user.service';
 
 const createUser = catchAsync(async (req, res) => {
-  const result =
-    await UserServices.createUserIntoDB(req.body);
+  const result = await UserServices.createUserIntoDB(req.body);
 
-    const transformedResult = {
-    _id: result?._id,
-    name: result?.name,
-    email: result?.email,
-    phone: result?.phone, 
-    role: result?.role,
-    address: result?.address,
-  };
-
-  sendResponse(res,
-  {
+  const { name, email, phone, role, address, _id } = result;
+  sendResponse(res, {
+    statusCode: 200,
     success: true,
-    statusCode: httpStatus.OK,
     message: 'User registered successfully',
-    data: transformedResult,
+    data: {
+      _id,
+      name,
+      email,
+      phone,
+      role,
+      address,
+    },
   });
 });
-
-
-
-const loginUser = catchAsync(async (req, res) => {
-  const result = await UserServices.loginUser(req.body);
-  // const { refreshToken, accessToken, needsPasswordChange } = result;
-
-  // res.cookie('refreshToken', refreshToken, {
-  //   secure: config.NODE_ENV === 'production',
-  //   httpOnly: true,
-  // });
-   const transformedResult = {
-    _id: result?._id,
-    name: result?.name,
-    email: result?.email,
-    phone: result?.phone, 
-    role: result?.role,
-    address: result?.address,
-  };
-
-  res.send({
-    success: true,
-    statusCode: httpStatus.OK,
-    message: "User logged in successfully",
-    token: "Token", 
-    data: transformedResult,
-  });
-});
-
 
 export const UserControllers = {
-  createUser, loginUser
+  createUser,
 };

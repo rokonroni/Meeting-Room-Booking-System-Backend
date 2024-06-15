@@ -15,4 +15,4 @@ router.post(
 
 router.get('/availability', SlotControllers.getAllSlots);
 
-export const slotRoute = router;
+export const slotRoutes = router;

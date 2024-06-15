@@ -18,4 +18,4 @@ router.get('/', auth('admin'), BookingControllers.getAllBooking);
 router.put('/:id', auth('admin'), BookingControllers.updateSingleBooking);
 router.delete('/:id', auth('admin'), BookingControllers.deleteSingleBooking);
 
-export const bookingRoute = router;
+export const BookingRoutes = router;

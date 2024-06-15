@@ -42,14 +42,14 @@ const getSingleRoom = catchAsync(async (req, res) => {
     sendResponse(res, {
       statusCode: 404,
       success: false,
-      message: "No Data Found",
+      message: "No Data Found ",
       data: [],
     });
   } else {
     sendResponse(res, {
       statusCode: 200,
       success: true,
-      message: "Rooms retrieved successfully",
+      message: "Room retrieved successfully",
       data: result,
     });
   }

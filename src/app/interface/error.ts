@@ -1,4 +1,4 @@
-export type TerrorSource = {
+export type TErrorMessages = {
   path: string | number;
   message: string;
 }[];
@@ -6,5 +6,5 @@ export type TerrorSource = {
 export type TGenericErrorResponse = {
   statusCode: number;
   message: string;
-  errorSources: TerrorSource;
+  errorMessages: TErrorMessages;
 };

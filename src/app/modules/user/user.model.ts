@@ -1,9 +1,9 @@
 import { Schema, model } from "mongoose";
-import { IUser, UserModel } from "./user.interface";
+import { TUser } from "./user.interface";
 import bcrypt from 'bcrypt';
 import config from "../../config";
 
-const userSchema = new Schema<IUser, UserModel>({
+const userSchema = new Schema<TUser>({
     name: {
         type: String, 
         required: true, 
@@ -38,7 +38,9 @@ const userSchema = new Schema<IUser, UserModel>({
 
 userSchema.pre('save', async function (next) {
   // eslint-disable-next-line @typescript-eslint/no-this-alias
-  const user = this; // doc
+  const user = this; 
+
+  
   // hashing password and save into DB
 
   user.password = await bcrypt.hash(
@@ -49,33 +51,6 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-// set '' after saving password
-// userSchema.post('save', function (doc, next) {
-//   doc.password = '';
-//   next();
-// });
 
-userSchema.statics.isUserExistsByEmail = async function (email: string) {
-  return await User.findOne({ email });
-};
-
-userSchema.statics.isPasswordMatched = async function (
-  plainTextPassword,
-  hashedPassword,
-) {
-  return await bcrypt.compare(plainTextPassword, hashedPassword);
-};
-
-// userSchema.statics.isJWTIssuedBeforePasswordChanged = function (
-//   passwordChangedTimestamp: Date,
-//   jwtIssuedTimestamp: number,
-// ) {
-//   const passwordChangedTime =
-//     new Date(passwordChangedTimestamp).getTime() / 1000;
-//   return passwordChangedTime > jwtIssuedTimestamp;
-// };
-
-
-
-const User= model<IUser, UserModel>("User", userSchema);
+const User= model<TUser>("User", userSchema);
 export default User; 

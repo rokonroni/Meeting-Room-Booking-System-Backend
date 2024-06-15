@@ -7,9 +7,10 @@ import AppError from '../../errors/AppError';
 import User from '../user/user.model';
 import { createToken } from './auth.utils';
 
-const loginUserFromDB = async (payload: TLoginUser) => {
- 
+const loginUser = async (payload: TLoginUser) => {
+ console.log("hi");
   const userData = await User.findOne({ email: payload?.email });
+  
   
   if (!userData) {
     throw new AppError(httpStatus.NOT_FOUND, 'This user is not found');
@@ -23,15 +24,14 @@ const loginUserFromDB = async (payload: TLoginUser) => {
     throw new AppError(httpStatus.UNAUTHORIZED, 'Invalid password');
   }
 
-  //access granted ---->login
+  //access granted ->login
   //create token and sent to the client
 
   const jwtPayload = {
     email: userData?.email,
     role: userData?.role,
-  };
+  }
 
-//   console.log(jwtPayload, 'jwtPayload');
 
   const accessToken = createToken(
     jwtPayload,
@@ -43,5 +43,5 @@ const loginUserFromDB = async (payload: TLoginUser) => {
 };
 
 export const AuthServices = {
-  loginUserFromDB,
+  loginUser,
 };
